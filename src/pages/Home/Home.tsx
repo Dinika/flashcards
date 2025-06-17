@@ -39,7 +39,12 @@ function HomePage() {
                     const wordOfTheDayCard = {
                         ...wordnikWordToCard(wordOfTheDay),
                     };
-                    addCardToDeck(wordOfTheDayCard, Category.Difficult, true);
+                    addCardToDeck(
+                        wordOfTheDayCard,
+                        Category.Difficult,
+                        true,
+                        "high",
+                    );
 
                     setCard(wordOfTheDayCard);
                     return;

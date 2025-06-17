@@ -58,7 +58,7 @@ function AddCardModal({ open, onCloseModal }: AddCardModalProps) {
             lastUpdatedAt: Date.now(),
             source: null,
         };
-        addCardToDeck(card, category);
+        addCardToDeck(card, category, true, "high");
 
         form.reset();
         setErrorMessage(null);

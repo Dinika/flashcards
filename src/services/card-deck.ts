@@ -49,10 +49,20 @@ export function getRandomCardFromDeck(): Card | null {
     return deck[0];
 }
 
+/**
+ * Adds new card to deck named `category`.
+ *
+ * If prioriy is high, the card will be placed in the deck in such as way that it is the first one to be retrieved
+ * when a card if pulled from that deck. This is a good in case of "word of the day".
+ *
+ * If low priority (default), the card is placed where it will be last one to be picked. This is good option
+ * (for example), for cards that have already recently been seen by the user.
+ */
 export function addCardToDeck(
     card: Card,
     category: TCategory,
     ignoreIfQuestionExists?: boolean,
+    priority?: "high" | "low",
 ) {
     let deck = getCategoryDeck(category);
     if (null === deck) {
@@ -66,8 +76,12 @@ export function addCardToDeck(
         return;
     }
 
-    // Deck is a queue. Since this is a new card it should be added at the end of the deck so that it is last one to be picked.
-    deck.push(card);
+    // Deck is a queue. Place high priority card to the front of the queue, and lower at the end.
+    if (priority === "high") {
+        deck.unshift(card);
+    } else {
+        deck.push(card);
+    }
     saveDeckToCategory(category, deck);
 }
 
